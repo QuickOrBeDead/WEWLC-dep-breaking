@@ -95,3 +95,10 @@ harness.
 4. Copy the instance variables and methods that contain the bad dependen- cies into the new subclass, taking care to preserve signatures. Make methods protected and abstract in your original class, and make your original class abstract.
 5. Create a testing subclass and change your test so that you attempt to instantiate it.
 6. Build your tests to verify that you can instantiate the new class.
+
+### Replace Function With Function Pointer (C)
+1. Find the declarations of the functions you want to replace.
+2. Create function pointers with the same names before each function dec- laration.
+3. Rename the original function declarations so that their names are not the same as the function pointers you’ve just declared.
+4. Initialize the pointers to the addresses of the old functions in a C file.
+5. Run a build to find the bodies of the old functions. Rename them to the new function names.
