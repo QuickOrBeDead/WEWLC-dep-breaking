@@ -55,3 +55,13 @@ copied.
 1. Identify an object creation in a constructor.
 2. Extract all of the work involved in the creation into a factory method.
 3. Create a testing subclass and override the factory method in it to avoid dependencies on problematic types under test.
+
+### Extract Implementer
+1. Make a copy of the source class’s declaration. Give it a different name. It’s useful to have a naming convention for classes you’ve extracted. I often use the prefix Production to indicate that the new class is the pro- duction code implementer of an interface.
+2. Turn the source class into an interface by deleting all non-public methods and all variables.
+3. Make all of the remaining public methods abstract. If you are working in C++, make sure that none of the methods that you make abstract are overridden by non-virtual methods.
+4. Examine all imports or file inclusions in the interface file, and see if they are necessary. Often you can remove many of them. You can Lean on the Compiler (315) to detect these. Just delete each in turn, and recompile to see if it is needed.
+5. Make your production class implement the new interface.
+6. Compile the production class to make sure that all method signatures in the interface are implemented.
+7. Compile the rest of the system to find all of the places where instances of the source class were created. Replace these with creations of the new production class.
+8. Recompile and test.
