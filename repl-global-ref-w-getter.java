@@ -20,3 +20,19 @@ public class RegisterSale {
     return Inventory.getInventory();
   }
 }
+
+// Now we can create a subclass of Inventory that we can use in the test. Because Inventory is a singleton, we have to make its constructor protected rather than private. After we’ve done that, we can subclass it like this and put in whatever logic we want to use to convert barcodes to items in a test.
+public class FakeInventory extends Inventory {
+  // our stub
+  public Item itemForBarcode(Barcode code) {
+  }
+}
+
+// Now we can write the class we’ll use in the test.
+class TestingRegisterSale extends RegisterSale {
+  Inventory inventory = new FakeInventory();
+  protected Inventory getInventory() {
+    return inventory;
+  }
+}
+
