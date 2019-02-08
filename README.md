@@ -36,3 +36,10 @@ cases, do what it takes to get the method to compile. In some cases, this is as 
 6. Lean on the Compiler (315) to find all the unresolved references to the old globals.
 7. Precede each unresolved reference with the name of the global instance of the new class.
 8. In places where you want to use fakes, use Introduce Static Setter (372), Parameterize Constructor (379), Parameterize Method (383) or Replace Global Reference with Getter (399).
+
+### Expose Static Method
+1. Write a test that accesses the method that you want to expose as a public
+static method of the class.
+2. Extract the body of the method to a static method. Remember to Pre- serve Signatures (312). You’ll have to use a different name for the method. Often you can use the names of parameters to help you come up with a new method name. For example, if a method named validate accepts a Packet, you can extract its body as a static method named vali- datePacket.
+3. Compile.
+4. If there are errors related to accessing instance data or methods, take a look at those features and see if they can be made static also. If they can, make them static so that the system will compile.
