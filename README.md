@@ -65,3 +65,10 @@ copied.
 6. Compile the production class to make sure that all method signatures in the interface are implemented.
 7. Compile the rest of the system to find all of the places where instances of the source class were created. Replace these with creations of the new production class.
 8. Recompile and test.
+
+### Extract Interface
+1. Create a new interface with the name you’d like to use. Don’t add any
+methods to it yet.
+2. Make the class that you are extracting from implement the interface. This can’t break anything because the interface doesn’t have any meth- ods. But it is good to compile and run your test just to verify that.
+3. Change the place where you want to use the object so that it uses the interface rather than the original class.
+4. Compile the system and introduce a new method declaration on the interface for each method use that the compiler reports as an error.
