@@ -5,7 +5,7 @@ public:
     ColorMatrix &colors,
     vector<point> &selection
   );
-  private : void drawPoint(int x, int y, COLOR color);
+ void drawPoint(int x, int y, COLOR color);
 
 };
 
@@ -14,11 +14,8 @@ void GDIBrush::draw(
   ColorMatrix &colors,
   vector<point> &selection
 ) {
-  for (vector<points>::iterator it = renderingRoots.begin();
-       it != renderingRoots.end(); ++it) {
-    point p = *it;
-    drawPoint(p.x, p.y, colors[n]);
-  }
+  Renderer render(this, renderingRoots, colors, selection);
+  renderer.draw();
 }
 
 class Renderer {
@@ -36,7 +33,14 @@ public:
     vector<point> &selection
   ) : brush(brush), renderingRoots(renderingRoots), colors(colors), selection(selection) {}
 
-  void draw();
+  void Renderer::draw()
+  {
+    for (vector<points>::iterator it = renderingRoots.begin();
+         it != renderingRoots.end(); ++it) {
+      point p = *it;
+      drawPoint(p.x, p.y, colors[n]);
+    }
+  }
 };
 
 /* 1. Create a class that will house the method code. */
