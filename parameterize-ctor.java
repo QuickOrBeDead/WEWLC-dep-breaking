@@ -5,3 +5,10 @@ public class MailChecker {
     this.checkPeriodSeconds = checkPeriodSeconds;
   }
 }
+
+public class MailChecker {
+  public MailChecker (MailerReceiver receiver, int checkPeriodSeconds) {
+    this.receiver = receiver;
+    this.checkPeriodSeconds = checkPeriodSeconds;
+  }
+}
