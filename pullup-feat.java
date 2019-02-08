@@ -2,19 +2,28 @@
 
 // In this situation, you can pull up the cluster of methods, the feature, into an abstract superclass. When you have that abstract superclass, you can subclass it and create instances of the subclass in your tests. Here is an example:
 
-public class Scheduler {
-  private List items;
+public class Scheduler extends SchedulingServices {
   public void updateScheduleItem(ScheduleItem item) throws SchedulingException {
-    try {
-      validate(item);
-    }
-    catch (ConflictException e) {
-      throw new SchedulingException(e);
-    }
+    // ...
   }
   private void validate(ScheduleItem item) throws ConflictException {
-    // make calls to a database
+    // make calls to the database
   }
+}
+
+// We’ve pulled getDeadtime (the feature we want to test) and all of the features it uses into an abstract class.
+public abstract class SchedulingServices {
+  protected List items;
+  protected boolean notShared(ScheduleItem item) {
+    // ...
+  }
+  protected int getClockTime() {
+    // ...
+  }
+  protected int getStandardFinish(ScheduleItem item) {
+    // ...
+  }
+
   public int getDeadTime() {
     int result = 0;
     for (Iterator it = items.iterator(); it.hasNext()) {
@@ -34,5 +43,23 @@ public class Scheduler {
   }
 }
 
-// Suppose that we want to make modifications to getDeadTime, but we don’t care about updateScheduleItem.
-// It would be nice not to have to deal with the dependency on the database at all. We could try to use Expose Static Method (345), but we are using many non-static features of the Scheduler class. Break Out Method Object (330) is another possibility, but this is a rather small method, and those dependencies on other methods and fields of the class will make the work more involved than we want it to be just to get the method under test.
+// Now we can make a testing subclass that allows us to access those methods in a test harness:
+public class TestingSchedulingServices extends SchedulingServices {
+  public TestingSchedulingServices() {
+
+  }
+  public void addItem(ScheduleItem item) {
+    items.add(item);
+  }
+}
+
+import junit.framework.*;
+
+class SchedulingServicesTest extends TestCase {
+  public void testGetDeadTime() {
+    TestingSchedulingServices services = new TestingSchedulingServices();
+    services.addItem(new ScheduleItem("a", 10, 20, ScheduleItem.BASIC));
+    assertEquals(2, services.getDeadtime());
+  }
+}
+
