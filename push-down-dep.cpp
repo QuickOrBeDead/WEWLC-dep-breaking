@@ -3,10 +3,28 @@
  * This technique helps you to separate problematic dependencies from the rest of the class, making it easier to work with in a test harness. */
 
 class OffMarketTradeValidator : public TradeValidator {
-private:
+protected:
   Trade &trade;
   bool flag;
-  void showMessage() {
+  virtual void showMessage() = 0;
+
+public:
+  OffMarketTradeValidator(Trade &trade) : trade(trade), flag(false) {}
+
+  bool isValid() const {
+    if (inRange(trade.getDate())
+      && validDestination(trade.destination)
+      && inHours(trade) {
+          flag = true;
+    }
+    showMessage();
+    return flag;
+  }
+};
+
+class WindowsOffMarketTradeValidator : public OffMarketTradeValidator {
+protected:
+  virtual void showMessage() {
     int status = AfxMessageBox(makeMessage(), MB_ABORTRETRYIGNORE);
     if (status == IDRETRY) {
       SubmitDialog dlg(this, "Press okay if this is a valid trade");
@@ -32,3 +50,4 @@ public:
     return flag;
   }
 };
+}
