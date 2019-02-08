@@ -2,9 +2,20 @@
 
 public class WorkflowEngine {
   public WorkflowEngine() {
-    Reader reader = new ModelReader(AppConfig.getDryConfiguration());
+    this.tm = makeTransactionManager();
+  }
+
+  protected TransactionManager makeTransactionManager() {
+    Reader reader = new ModelReader(AppConfiguration.getDryConfiguration());
     Persister persister = new XMLStore(AppConfiguration.getDryConfiguration());
-    this.tm = new TransactionManager(reader, persister);
+    return new TransactionManager(reader, persister);
+  }
+}
+
+// When we have that factory method, we can subclass and override it so that we can return a new transaction manager whenever we need one:
+public class TestWorkflowEngine extends WorkflowEngine {
+  protected TransactionManager makeTransactionManager() {
+    return new FakeTransactionManager();
   }
 }
 
