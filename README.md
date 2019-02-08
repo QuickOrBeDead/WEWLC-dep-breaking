@@ -72,3 +72,10 @@ methods to it yet.
 2. Make the class that you are extracting from implement the interface. This can’t break anything because the interface doesn’t have any meth- ods. But it is good to compile and run your test just to verify that.
 3. Change the place where you want to use the object so that it uses the interface rather than the original class.
 4. Compile the system and introduce a new method declaration on the interface for each method use that the compiler reports as an error.
+
+### Parameterize Constructor
+1. Identify the constructor that you want to parameterize and make a copy
+of it.
+2. Add a parameter to the constructor for the object whose creation you are going to replace. Remove the object creation and add an assignment from the parameter to the instance variable for the object.
+3. If you can call a constructor from a constructor in your language, remove the body of the old constructor and replace it with a call to the old constructor. Add a new expression to the call of the new constructor in the old constructor. If you can’t call a constructor from another con- structor in your language, you may have to extract any duplication among the constructors to a new method.
+NOTE: In languages that allow default arguments can simply use a default argument to the existing constructor
