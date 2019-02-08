@@ -12,7 +12,7 @@ public class RegisterSale
 
 public class RegisterSale {
   public void addItem(Barcode code) {
-    Item newItem = Inventory.getInventory().itemForBarcode(code);
+    Item newItem = getInventory().itemForBarcode(code);
     items.add(newItem);
   }
 
