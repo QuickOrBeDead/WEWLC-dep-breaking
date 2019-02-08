@@ -1,5 +1,17 @@
 // ModelNode.h
 class ModelNode {
+public:
+  virtual ~ModelNode() = 0;
+  virtual void addExteriorNode(ModelNode *newNode) = 0;
+  virtual void addInternalNode(ModelNode *newNode) = 0;
+  virtual void colorize() = 0;
+};
+
+// ModelNode.cpp
+ModelNode::~ModelNode() {}
+
+// ProductionModelNode.h
+class ProductionModelNode {
 private:
   list<ModelNode *> m_interiorNodes;
   list<ModelNode *> m_exteriorNodes;
