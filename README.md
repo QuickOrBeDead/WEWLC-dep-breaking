@@ -102,3 +102,9 @@ harness.
 3. Rename the original function declarations so that their names are not the same as the function pointers you’ve just declared.
 4. Initialize the pointers to the addresses of the old functions in a C file.
 5. Run a build to find the bodies of the old functions. Rename them to the new function names.
+
+### Replace Global Reference With Getter
+1. Identify the global reference that you want to replace.
+2. Write a getter for the global reference. Make sure that the access protec- tion of the method is loose enough for you to be able to override the get- ter in a subclass.
+3. Replace references to the global with calls to the getter.
+4. Create a testing subclass and override the getter.
