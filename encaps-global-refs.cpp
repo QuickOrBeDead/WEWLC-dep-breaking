@@ -1,5 +1,7 @@
 /* bool AGG230_activeframe[AGG230_SIZE]; */
 /* bool AGG230_suspendedframe[AGG230_SIZE]; */
+
+// TODO: move global to AGGController constructor & use instance var
 Frame frameForAGG230;
 
 void AGGController::suspend_frame() {
@@ -17,10 +19,9 @@ void AGGController::flush_frame_buffers() {
 
 class Frame {
 public:
-  // declare AGG230_SIZE as a constant
-  enum { AGG230_SIZE = 256 };
-  bool AGG230_activeframe[AGG230_SIZE];
-  bool AGG230_suspendedframe[AGG230_SIZE];
+  enum { BUFFER_SIZE = 256 };
+  bool AGG230_activeframe[BUFFER_SIZE];
+  bool AGG230_suspendedframe[BUFFER_SIZE];
 };
 
 /* In this example, we have some code that does work with a few global arrays. The suspend_frame method needs to access the active and suspended frames. At first glance, it looks like we can make the frames members of the AGGController class, but some other classes (not shown) use the frames. What can we do? */
