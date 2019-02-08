@@ -26,3 +26,13 @@ cases, do what it takes to get the method to compile. In some cases, this is as 
 4. Verify that the source files for the class are not part of the build.
 5. Build to find missing methods.
 6. Add method definitions to the test source file until you have a complete build.
+
+### Encapsulate Global References
+1. Identify the globals that you want to encapsulate.
+2. Create a class that you want to reference them from.
+3. Copy the globals into the class. If some of them are variables, handle their initialization in the class.
+4. Comment out the original declarations of the globals.
+5. Declare a global instance of the new class.
+6. Lean on the Compiler (315) to find all the unresolved references to the old globals.
+7. Precede each unresolved reference with the name of the global instance of the new class.
+8. In places where you want to use fakes, use Introduce Static Setter (372), Parameterize Constructor (379), Parameterize Method (383) or Replace Global Reference with Getter (399).
