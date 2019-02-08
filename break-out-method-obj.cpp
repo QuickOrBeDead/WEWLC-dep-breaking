@@ -1,4 +1,4 @@
-class GDIBrush {
+class GDIBrush : public PointRenderer {
 public:
   void draw(
     vector<point> &renderingRoots,
@@ -18,27 +18,33 @@ void GDIBrush::draw(
   renderer.draw();
 }
 
+// interface
+class PointRenderer {
+public:
+  virtual void drawPoint(int x, int y, COLOR color) = 0;
+};
+
 class Renderer {
 private:
-    GBIBrush *brush;
+    PointRenderer *pointRenderer;
     vector<point> &renderingRoots;
     ColorMatrix &colors;
     vector<point> &selection;
 
 public:
   Renderer(
-    GBIBrush *brush,
+    PointRenderer *pointRenderer;
     vector<point> &renderingRoots,
     ColorMatrix &colors,
     vector<point> &selection
-  ) : brush(brush), renderingRoots(renderingRoots), colors(colors), selection(selection) {}
+  ) : pointRenderer(pointRenderer), renderingRoots(renderingRoots), colors(colors), selection(selection) {}
 
   void Renderer::draw()
   {
     for (vector<points>::iterator it = renderingRoots.begin();
          it != renderingRoots.end(); ++it) {
       point p = *it;
-      drawPoint(p.x, p.y, colors[n]);
+      pointRenderer->drawPoint(p.x, p.y, colors[n]);
     }
   }
 };
