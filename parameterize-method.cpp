@@ -1,6 +1,6 @@
-void TestCase::run() {
+void TestCase::run(TestResult *result) {
   delete m_result;
-  m_result = new TestResult;
+  m_result = result;
   try {
     setUp();
     runTest(m_result);
@@ -8,4 +8,9 @@ void TestCase::run() {
     result->addFailure(e, this);
   }
   tearDown();
+}
+
+/* We can use a little forwarding method that keeps the original signature intact: */
+void TestCase::run() {
+  run(new TestResult);
 }
