@@ -1,18 +1,27 @@
-bool AGG230_activeframe[AGG230_SIZE];
-bool AGG230_suspendedframe[AGG230_SIZE];
+/* bool AGG230_activeframe[AGG230_SIZE]; */
+/* bool AGG230_suspendedframe[AGG230_SIZE]; */
+Frame frameForAGG230;
 
 void AGGController::suspend_frame() {
-  frame_copy(AGG230_suspendedframe, AGG230_activeframe);
-  clear(AGG230_activeframe);
+  frame_copy(frameForAGG230.AGG230_suspendedframe, frameForAGG230.AGG230_activeframe);
+  clear(frameForAGG230.AGG230_activeframe);
   flush_frame_buffers();
 }
 
 void AGGController::flush_frame_buffers() {
-  for (int n = 0; n < AGG230_SIZE; ++n) {
-    AGG230_activeframe[n] = false;
-    AGG230_suspendedframe[n] = false;
+  for (int n = 0; n < frameForAGG230.AGG230_SIZE; ++n) {
+    frameForAGG230.AGG230_activeframe[n] = false;
+    frameForAGG230.AGG230_suspendedframe[n] = false;
   }
 }
+
+class Frame {
+public:
+  // declare AGG230_SIZE as a constant
+  enum { AGG230_SIZE = 256 };
+  bool AGG230_activeframe[AGG230_SIZE];
+  bool AGG230_suspendedframe[AGG230_SIZE];
+};
 
 /* In this example, we have some code that does work with a few global arrays. The suspend_frame method needs to access the active and suspended frames. At first glance, it looks like we can make the frames members of the AGGController class, but some other classes (not shown) use the frames. What can we do? */
 
