@@ -108,3 +108,9 @@ harness.
 2. Write a getter for the global reference. Make sure that the access protec- tion of the method is loose enough for you to be able to override the get- ter in a subclass.
 3. Replace references to the global with calls to the getter.
 4. Create a testing subclass and override the getter.
+
+### Subclass and Override Method
+1. Identify the dependencies that you want to separate or the place where you want to sense. Try to find the smallest set of methods that you can override to achieve your goals.
+2. Make each method overridable. The way to do this varies among pro- gramming languages. In C++, the methods have to be made virtual if they aren’t already. In Java, the methods need to be made non-final. In many .NET languages, you explicitly have to make the method overrid- able also.
+3. If your language requires it, adjust the visibility of the methods that you will override to so that they can be overridden in a subclass. In Java and C#, methods must at least have protected visibility to be overridden in subclasses. In C++, methods can remain private and still be overridden in subclasses.
+4. Create a subclass that overrides the methods. Verify that you are able to build it in your test harness.
