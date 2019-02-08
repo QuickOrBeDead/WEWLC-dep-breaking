@@ -86,3 +86,12 @@ NOTE: In languages that allow default arguments can simply use a default argumen
 3. Copy the methods to the superclass and compile.
 4. Copy each missing reference that the compiler alerts you about to the new superclass. Remember to Preserve Signatures (312) as you do this, to reduce the chance of errors.
 5. When both classes compile successfully, create a subclass for the abstract class and add whatever methods you need to be able to set it up in your tests.
+
+### Push Down Dependency
+1. Attempt to build the class that has dependency problems in your test
+harness.
+2. Identify which dependencies create problems in the build.
+3. Create a new subclass with a name that communicates the specific envi- ronment of those dependencies.
+4. Copy the instance variables and methods that contain the bad dependen- cies into the new subclass, taking care to preserve signatures. Make methods protected and abstract in your original class, and make your original class abstract.
+5. Create a testing subclass and change your test so that you attempt to instantiate it.
+6. Build your tests to verify that you can instantiate the new class.
