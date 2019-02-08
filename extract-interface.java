@@ -1,6 +1,6 @@
 void testPayday() {
   FakeTransactionLog aLog = new FakeTransactionLog();
-  Transaction t = new PaydayTransaction(getTestingDatabase());
+  Transaction t = new PaydayTransaction(getTestingDatabase(), aLog);
 
   t.run();
 
@@ -25,14 +25,18 @@ public class PaydayTransaction extends Transaction {
 }
 
 interface TransactionRecorder {
+  void saveTransaction(Transaction);
 }
 
 public class TransactionLog implements TransactionRecorder {
-  // ...
+  void saveTransaction(Transaction txn) {
+    // ...
+  }
 }
 
 public class FakeTransactionLog implements TransactionRecorder {
-  // ...
+  void saveTransaction(Transaction txn) {
+  }
 }
 
 // FakeTransactionLog doesn't exist yet
