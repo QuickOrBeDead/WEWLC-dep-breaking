@@ -2,7 +2,7 @@
 // If we want to separate out the dependency on MimeMessage, we can make createForwardMessage protected and override it in a new subclass that we make just for testing:
 
 class MessageForwarder {
-  private Message createForwardMessage(Session session, Message message)
+  protected Message createForwardMessage(Session session, Message message)
     throws MessagingException, IOException {
 
     MimeMessage forward = new MimeMessage(session);
@@ -15,6 +15,13 @@ class MessageForwarder {
     forward.setSentDate(message.getSentDate());
     forward.addHeader(LOOP_HEADER, listAddress);
     buildForwardContent(message, forward);
+    return forward;
+  }
+}
+
+class TestingMessageForwarder extends MessageForwarder {
+  protected Message createForwardMessage(Session session, Message message) {
+    Message forward = new FakeMessage(message);
     return forward;
   }
 }
