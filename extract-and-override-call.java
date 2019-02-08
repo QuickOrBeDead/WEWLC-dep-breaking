@@ -4,7 +4,17 @@ public class PageLayout {
   private StyleTemplate template;
 
   protected void rebindStyles() {
-    styles = StyleMaster.formStyles(template, id);
+    styles = formStyles(template, id);
+  }
+
+  protected List formStyles(StyleTemplate template, int id) {
+    return StyleMaster.formStyles(template, id);
+  }
+}
+
+public class TestingPageLayout extends PageLayout {
+  protected List formStyles(StyleTemplate template, int id) {
+    return new ArrayList();
   }
 }
 
