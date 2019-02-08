@@ -51,3 +51,7 @@ Copy its method signature so that you can Preserve Signatures (312).
 copied.
 3. Copy the call to the new method and replace the call with a call to the new method.
 
+### Extract And Override Factory Method
+1. Identify an object creation in a constructor.
+2. Extract all of the work involved in the creation into a factory method.
+3. Create a testing subclass and override the factory method in it to avoid dependencies on problematic types under test.
