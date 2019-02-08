@@ -79,3 +79,10 @@ of it.
 2. Add a parameter to the constructor for the object whose creation you are going to replace. Remove the object creation and add an assignment from the parameter to the instance variable for the object.
 3. If you can call a constructor from a constructor in your language, remove the body of the old constructor and replace it with a call to the old constructor. Add a new expression to the call of the new constructor in the old constructor. If you can’t call a constructor from another con- structor in your language, you may have to extract any duplication among the constructors to a new method.
 NOTE: In languages that allow default arguments can simply use a default argument to the existing constructor
+
+### Pull Up Feature
+1. Identify the methods that you want to pull up.
+2. Create an abstract superclass for the class that contains the methods.
+3. Copy the methods to the superclass and compile.
+4. Copy each missing reference that the compiler alerts you about to the new superclass. Remember to Preserve Signatures (312) as you do this, to reduce the chance of errors.
+5. When both classes compile successfully, create a subclass for the abstract class and add whatever methods you need to be able to set it up in your tests.
